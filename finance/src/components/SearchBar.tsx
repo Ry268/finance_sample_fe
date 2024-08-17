@@ -41,7 +41,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             />
             {suggestions.length > 0 && (
                 <ul className="suggestions-list">
-                    {suggestions.map((suggestion, index) => (
+                    {suggestions.map((suggestion) => (
                         <li key={suggestion.id} className="suggestion-item">
                             {suggestion.name} ({suggestion.code}) {/* Company オブジェクトの name と code プロパティにアクセス */}
                         </li>
