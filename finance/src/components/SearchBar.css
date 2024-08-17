@@ -1,50 +1,48 @@
-/* src/components/SearchBar.css */
-
-.SearchBarWrapper {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f5f5f5;
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.SearchBarContainer {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 50px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px; /* 最大幅を設定 */
-  width: 100%; /* コンテナの幅を全体に広げる */
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #888;
 }
 
-.Input {
-  flex-grow: 1; /* 入力フィールドを利用可能なスペースに広げる */
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 50px;
+input {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   outline: none;
-  transition: width 0.4s ease-in-out;
 }
 
-.Input:focus {
-  /* Focus時に特別な処理をしない */
+.suggestions-list {
+  position: absolute;
+  top: 100%; /* 入力フィールドの下に表示 */
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000; /* 他の要素よりも前面に表示 */
+  margin-top: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.Button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4285f4;
-  color: white;
-  border: none;
-  border-radius: 50px;
+.suggestion-item {
+  padding: 10px;
   cursor: pointer;
-  margin-left: 10px;
-  transition: background-color 0.3s;
 }
 
-.Button:hover {
-  background-color: #357ae8;
+.suggestion-item:hover {
+  background-color: #f0f0f0;
 }

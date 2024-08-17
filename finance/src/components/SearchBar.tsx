@@ -1,35 +1,55 @@
-// src/components/SearchBar.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { FaSearch } from 'react-icons/fa';
 import './SearchBar.css';
+import { fetchSearchSuggestions, Company } from '../services/api';
 
-const SearchBar: React.FC = () => {
-  const [query, setQuery] = useState('');
+interface SearchBarProps {
+    onSearch: (query: string) => void;
+}
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+    const [query, setQuery] = useState('');
+    const [suggestions, setSuggestions] = useState<Company[]>([]);
 
-  const handleSearch = () => {
-    console.log(`Searching for: ${query}`);
-    // ここで検索クエリを処理するコードを追加
-  };
+    useEffect(() => {
+        if (query.length > 0) {
+            fetchSearchSuggestions(query)
+                .then(data => {
+                    console.log('Search suggestions:', data); // デバッグログ
+                    setSuggestions(data);
+                })
+                .catch(error => console.error('Error fetching search suggestions:', error));
+        } else {
+            setSuggestions([]);
+        }
+    }, [query]);
 
-  return (
-    <div className="SearchBarWrapper">
-      <div className="SearchBarContainer">
-        <input
-          type="text"
-          className="Input"
-          placeholder="Search Google"
-          value={query}
-          onChange={handleInputChange}
-        />
-        <button className="Button" onClick={handleSearch}>
-          Search
-        </button>
-      </div>
-    </div>
-  );
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setQuery(value);
+        onSearch(value);
+    };
+
+    return (
+        <div className="search-bar">
+            <FaSearch className="search-icon" />
+            <input
+                type="text"
+                value={query}
+                onChange={handleInputChange}
+                placeholder="Search..."
+            />
+            {suggestions.length > 0 && (
+                <ul className="suggestions-list">
+                    {suggestions.map((suggestion, index) => (
+                        <li key={suggestion.id} className="suggestion-item">
+                            {suggestion.name} ({suggestion.code}) {/* Company オブジェクトの name と code プロパティにアクセス */}
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
 };
 
 export default SearchBar;
