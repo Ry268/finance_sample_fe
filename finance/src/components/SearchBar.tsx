@@ -10,17 +10,17 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState<Company[]>([]);
-    const [activeIndex, setActiveIndex] = useState(-1); // 現在アクティブな候補のインデックス
-    const [isSuggestionsVisible, setSuggestionsVisible] = useState(true); // 候補リストが表示されているかどうか
-    const suggestionsRef = useRef<HTMLUListElement>(null); // 候補リスト全体の参照
-    const activeItemRef = useRef<HTMLLIElement>(null); // アクティブな項目の参照
+    const [activeIndex, setActiveIndex] = useState(-1);
+    const [isSuggestionsVisible, setSuggestionsVisible] = useState(true);
+    const suggestionsRef = useRef<HTMLUListElement>(null);
+    const activeItemRef = useRef<HTMLLIElement>(null);
 
     useEffect(() => {
         if (query.length > 0) {
             fetchSearchSuggestions(query)
                 .then(data => {
                     setSuggestions(data);
-                    setActiveIndex(-1); // 新しい候補が表示されたらアクティブな項目をリセット
+                    setActiveIndex(-1);
                 })
                 .catch(error => console.error('Error fetching search suggestions:', error));
         } else {
@@ -56,32 +56,28 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowDown') {
-            // 下矢印キーを押した場合
             setActiveIndex(prevIndex => (prevIndex < suggestions.length - 1 ? prevIndex + 1 : prevIndex));
         } else if (e.key === 'ArrowUp') {
-            // 上矢印キーを押した場合
-            setActiveIndex(prevIndex => (prevIndex > 0 ? prevIndex - 1 : 0)); // 一番上で固定
+            setActiveIndex(prevIndex => (prevIndex > 0 ? prevIndex - 1 : 0));
         } else if (e.key === 'Enter') {
-            // Enterキーを押した場合
             if (activeIndex >= 0 && activeIndex < suggestions.length) {
-                setQuery(suggestions[activeIndex].name); // 選択された候補を入力フィールドに設定
+                setQuery(suggestions[activeIndex].name);
                 setSuggestionsVisible(false);
             }
         } else if (e.key === 'Escape') {
-            // Escapeキーを押した場合
-            setSuggestionsVisible(false); // 候補リストを非表示にする
+            setSuggestionsVisible(false);
         }
     };
 
     return (
-        <div className="search-bar">
+        <div className={`search-bar ${suggestions.length === 0 ? 'rounded' : ''}`}>
             <FaSearch className="search-icon" />
             <input
                 type="text"
                 value={query}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                placeholder="Search..."
+                placeholder="企業名か証券コードを入力"
             />
             {isSuggestionsVisible && suggestions.length > 0 && (
                 <ul className="suggestions-list" ref={suggestionsRef}>

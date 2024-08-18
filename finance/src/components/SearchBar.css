@@ -1,8 +1,12 @@
 .search-bar {
   position: relative;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
+}
+
+.search-bar.rounded input {
+  border-radius: 8px; /* 候補がない場合は検索バー全体を丸くする */
 }
 
 .search-icon {
