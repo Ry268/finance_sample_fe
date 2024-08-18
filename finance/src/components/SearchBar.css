@@ -19,22 +19,22 @@ input {
   padding: 10px 10px 10px 40px;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0; /* 検索バーの下端を角ばったままに */
   outline: none;
 }
 
 .suggestions-list {
   position: absolute;
-  top: 100%; 
+  top: 100%; /* 検索バーの直下に配置 */
   left: 0;
   width: 100%;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-top: none; /* 検索バーと一体化させるため上部のボーダーを削除 */
+  border-radius: 0 0 8px 8px; /* 検索候補リストの下端を角丸に */
   max-height: 200px;
   overflow-y: auto;
   z-index: 1000;
-  margin-top: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 0;
   list-style-type: none; /* デフォルトのリストスタイルを削除 */
