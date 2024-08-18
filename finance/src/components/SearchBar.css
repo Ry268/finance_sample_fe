@@ -25,15 +25,15 @@ input {
 
 .suggestions-list {
   position: absolute;
-  top: 100%; /* 入力フィールドの下に表示 */
+  top: 100%; 
   left: 0;
   width: 100%;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
   max-height: 200px;
   overflow-y: auto;
-  z-index: 1000; /* 他の要素よりも前面に表示 */
+  z-index: 1000; 
   margin-top: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -41,6 +41,23 @@ input {
 .suggestion-item {
   padding: 10px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: start; /* 左揃え */
+}
+
+.suggestion-code {
+  font-weight: bold; /* 証券コードを太字に */
+  color: #333; /* 暗めの色に変更 */
+  margin-right: 10px; /* 証券コードと会社名の間にスペースを追加 */
+}
+
+.suggestion-separator {
+  color: #888; /* セパレーターの色を薄めに */
+}
+
+.suggestion-name {
+  color: #555; /* 会社名の色をやや明るく */
 }
 
 .suggestion-item:hover {

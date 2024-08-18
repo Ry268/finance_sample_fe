@@ -43,8 +43,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
                 <ul className="suggestions-list">
                     {suggestions.map((suggestion) => (
                         <li key={suggestion.id} className="suggestion-item">
-                            {suggestion.name} ({suggestion.code}) {/* Company オブジェクトの name と code プロパティにアクセス */}
-                        </li>
+                        <span className="suggestion-code">{suggestion.code}</span>
+                        <span className="suggestion-separator"></span>
+                        <span className="suggestion-name">{suggestion.name}</span>
+                    </li>
                     ))}
                 </ul>
             )}
